@@ -11,6 +11,14 @@ import java.util.List;
 
 public class JsonUtils {
 
+    private static final String NAME = "name";
+    private static final String MAIN_NAME = "mainName";
+    private static final String ALSO_KNOWN_AS = "alsoKnownAs";
+    private static final String PLACE_OF_ORIGIN = "placeOfOrigin";
+    private static final String DESCRIPTION = "description";
+    private static final String IMAGE = "image";
+    private static final String INGREDIENTS = "ingredients";
+
     public static Sandwich parseSandwichJson(String json) {
         Sandwich sandwich = new Sandwich();
 
@@ -24,12 +32,12 @@ public class JsonUtils {
 
         try {
             jsonObject = new JSONObject(json);
-            mainName = jsonObject.getJSONObject("name").getString("mainName");
-            alsoKnownAs = prepareJsonArray(jsonObject.getJSONObject("name"), "alsoKnownAs");
-            placeOfOrigin = jsonObject.getString("placeOfOrigin");
-            description = jsonObject.getString("description");
-            image = jsonObject.getString("image");
-            ingredients = prepareJsonArray(jsonObject, "ingredients");
+            mainName = jsonObject.getJSONObject(NAME).optString(MAIN_NAME);
+            alsoKnownAs = prepareJsonArray(jsonObject.getJSONObject(NAME), ALSO_KNOWN_AS);
+            placeOfOrigin = jsonObject.optString(PLACE_OF_ORIGIN);
+            description = jsonObject.optString(DESCRIPTION);
+            image = jsonObject.optString(IMAGE);
+            ingredients = prepareJsonArray(jsonObject, INGREDIENTS);
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -74,14 +74,18 @@ public class DetailActivity extends AppCompatActivity {
     private void populateUI() {
         tv_mainname.append(sandwich.getMainName());
         int counterForAlsoKnownAs = 0;
-        for (String name : sandwich.getAlsoKnownAs()) {
-            if (counterForAlsoKnownAs++ == sandwich.getAlsoKnownAs().size() - 1) {
-                tv_alsoknownas.append(name);
-            } else {
-                tv_alsoknownas.append(name + "\n");
+        if (sandwich.getAlsoKnownAs().isEmpty()) {
+            tv_alsoknownas.append("Unknown");
+        } else {
+            for (String name : sandwich.getAlsoKnownAs()) {
+                if (counterForAlsoKnownAs++ == sandwich.getAlsoKnownAs().size() - 1) {
+                    tv_alsoknownas.append(name);
+                } else {
+                    tv_alsoknownas.append(name + "\n");
+                }
             }
         }
-        tv_placeoforigin.append(sandwich.getPlaceOfOrigin());
+        tv_placeoforigin.append(sandwich.getPlaceOfOrigin().equals("") ? "Unknown" : sandwich.getPlaceOfOrigin());
         tv_description.append(sandwich.getDescription());
         int counterForIngridients = 0;
         for (String name : sandwich.getIngredients()) {
